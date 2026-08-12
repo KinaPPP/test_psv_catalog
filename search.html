@@ -81,21 +81,11 @@ function searchGames() {
         html += '<a href="psns:browse?product=' + game.id + '" class="btn">ストアを開く</a>';
         
         if (game.has_dlc) {
-            html += '<a href="dlc.html?id=' + game.title_id + '" class="btn-dlc">DLCを見る (' + game.dlc_count + '件)</a>';
+            html += '<a href="dlc_' + game.title_id + '.html" class="btn-dlc">DLCを見る (' + game.dlc_count + '件)</a>';
         }
         html += '</div>';
     }
     grid.innerHTML = html;
-
-    // ★ Vita向け：処理落ちを考慮し、描画から300ms待ってから強制リペイントハック
-    setTimeout(function() {
-        var oldPadding = document.body.style.paddingTop;
-        document.body.style.paddingTop = '11px'; // CSSをいじって強制リフロー
-        var dummy = document.body.offsetHeight;  // 値を読み取って確定させる
-        document.body.style.paddingTop = oldPadding; // すぐに戻す
-        window.scrollBy(0, 1);
-        window.scrollBy(0, -1);
-    }, 300);
 }
 
 window.onload = function() {
