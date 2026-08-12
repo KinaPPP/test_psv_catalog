@@ -52,7 +52,6 @@ function getQueryParam(name) {
     return null;
 }
 
-// 履歴を残さずに画面の内容だけを切り替えるページネーション
 function renderPage(page) {
     var grid = document.getElementById('dlcGrid');
     var paginationTop = document.getElementById('paginationTop');
@@ -68,6 +67,7 @@ function renderPage(page) {
     var html = '';
     for (var j = startIdx; j < endIdx; j++) {
         var dlc = matchedDlcs[j];
+        // 相手サーバーへの負荷を考慮し、画像URLがあっても直リンク表示はしない
         html += '<div class="card" style="width: 140px; height: auto;">';
         html += '<p style="font-size: 11px; height: 4em; overflow: hidden;"><b>' + dlc.title + '</b></p>';
         html += '<a href="psns:browse?product=' + dlc.id + '" class="btn">ストアを開く</a>';
@@ -89,33 +89,40 @@ function renderPage(page) {
     paginationBottom.innerHTML = pageHtml;
     
     window.scrollTo(0, 0);
+
+    // ★ Vitaブラウザ向け：描画後に一瞬だけスクロールさせて強制リペイント
+    setTimeout(function() {
+        window.scrollBy(0, 1);
+        window.scrollBy(0, -1);
+    }, 50);
 }
 
 window.onload = function() {
-    var targetId = getQueryParam("id");
-    var header = document.getElementById('dlcHeader');
-    
-    if (!targetId) {
-        document.getElementById('dlcGrid').innerHTML = '<p>ゲームIDが指定されていません。</p>';
-        return;
-    }
-    
-    // 対象のDLCを抽出
-    for (var i = 0; i < allDlcs.length; i++) {
-        if (allDlcs[i].title_id === targetId) {
-            matchedDlcs.push(allDlcs[i]);
+    // データ量が多い場合のUIフリーズを避けるため、少し遅延させて処理開始
+    setTimeout(function() {
+        var targetId = getQueryParam("id");
+        var header = document.getElementById('dlcHeader');
+        
+        if (!targetId) {
+            document.getElementById('dlcGrid').innerHTML = '<p>ゲームIDが指定されていません。</p>';
+            return;
         }
-    }
-    
-    header.innerHTML = '<a href="javascript:history.back()">&laquo; 戻る</a> ' + targetId + ' のDLC (' + matchedDlcs.length + '件)';
-    
-    if (matchedDlcs.length === 0) {
-        document.getElementById('dlcGrid').innerHTML = '<p>このゲームのDLCは見つかりませんでした。</p>';
-        return;
-    }
+        
+        for (var i = 0; i < allDlcs.length; i++) {
+            if (allDlcs[i].title_id === targetId) {
+                matchedDlcs.push(allDlcs[i]);
+            }
+        }
+        
+        header.innerHTML = '<a href="javascript:history.back()">&laquo; 戻る</a> ' + targetId + ' のDLC (' + matchedDlcs.length + '件)';
+        
+        if (matchedDlcs.length === 0) {
+            document.getElementById('dlcGrid').innerHTML = '<p>このゲームのDLCは見つかりませんでした。</p>';
+            return;
+        }
 
-    // 初回描画
-    renderPage(1);
+        renderPage(1);
+    }, 50);
 };
 </script>
 

@@ -87,9 +87,14 @@ function searchGames() {
         html += '</div>';
     }
     grid.innerHTML = html;
+
+    // ★ Vitaブラウザ向け：検索結果の描画後に強制リペイント
+    setTimeout(function() {
+        window.scrollBy(0, 1);
+        window.scrollBy(0, -1);
+    }, 50);
 }
 
-// ページ読み込み時に検索窓に文字があれば自動で再検索を実行
 window.onload = function() {
     var inputElem = document.getElementById('searchInput');
     if (inputElem && inputElem.value !== '') {
