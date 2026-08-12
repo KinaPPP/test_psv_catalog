@@ -67,7 +67,6 @@ function renderPage(page) {
     var html = '';
     for (var j = startIdx; j < endIdx; j++) {
         var dlc = matchedDlcs[j];
-        // 相手サーバーへの負荷を考慮し、画像URLがあっても直リンク表示はしない
         html += '<div class="card" style="width: 140px; height: auto;">';
         html += '<p style="font-size: 11px; height: 4em; overflow: hidden;"><b>' + dlc.title + '</b></p>';
         html += '<a href="psns:browse?product=' + dlc.id + '" class="btn">ストアを開く</a>';
@@ -90,15 +89,19 @@ function renderPage(page) {
     
     window.scrollTo(0, 0);
 
-    // ★ Vitaブラウザ向け：描画後に一瞬だけスクロールさせて強制リペイント
+    // ★ Vita向け強力なリペイントハック：CPUの処理追いつき待ちで300ms遅延
     setTimeout(function() {
+        var oldPadding = document.body.style.paddingTop;
+        document.body.style.paddingTop = '11px'; // レイアウト変化をブラウザに通知
+        var dummy = document.body.offsetHeight;  // 強制リフロー
+        document.body.style.paddingTop = oldPadding;
         window.scrollBy(0, 1);
         window.scrollBy(0, -1);
-    }, 50);
+    }, 300);
 }
 
 window.onload = function() {
-    // データ量が多い場合のUIフリーズを避けるため、少し遅延させて処理開始
+    // 初回のデータ突き合わせもVitaだと重いので、少し待ってから実行
     setTimeout(function() {
         var targetId = getQueryParam("id");
         var header = document.getElementById('dlcHeader');
@@ -122,7 +125,7 @@ window.onload = function() {
         }
 
         renderPage(1);
-    }, 50);
+    }, 100);
 };
 </script>
 
