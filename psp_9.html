@@ -27,9 +27,9 @@
         .pagination { margin: 20px 0; font-size: 16px; font-weight: bold; }
         .pagination a { padding: 10px 15px; background: #fff; border-radius: 5px; text-decoration: none; color: #003791; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 0 10px;}
         
-        /* トップページ 2列レイアウト用スタイル */
-        .menu-container { display: flex; max-width: 900px; margin: 15px auto; }
-        .menu-col { flex: 1; margin: 0 8px; display: flex; flex-direction: column; }
+        /* トップページ 2列レイアウト用スタイル（Vita完全互換テーブルレイアウト） */
+        .menu-container { display: table; width: 100%; max-width: 900px; margin: 15px auto; table-layout: fixed; }
+        .menu-col { display: table-cell; width: 50%; vertical-align: top; padding: 0 6px; box-sizing: border-box; }
         .menu-btn { 
             display: block; width: 100%; box-sizing: border-box; margin: 0 0 12px 0; padding: 14px 8px; 
             background: #fff; color: #003791; text-decoration: none; border-radius: 8px; 
