@@ -41,14 +41,15 @@
         .btn-search { background: #ffe833; color: #d32f2f; border-color: #fbc02d; }
         .btn-custom-id { background: #e8f0fe; color: #1967d2; border-color: #aecbfa; }
 
-        .search-box { width: 60%; max-width: 300px; padding: 12px; font-size: 16px; border: 2px solid #003791; border-radius: 8px; vertical-align: middle; }
+        /* 検索ボックス（Vitaのポインタ重なり最適化：幅を広げて右側クリックの座標をキャッチ） */
+        .search-box { width: 70%; max-width: 600px; box-sizing: border-box; padding: 12px; font-size: 16px; border: 2px solid #003791; border-radius: 8px; vertical-align: middle; }
         .search-btn { padding: 12px 20px; font-size: 16px; background: #003791; color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; vertical-align: middle; margin-left: 5px; }
     </style>
 </head>
 <body>
 <div class="header"><a href="index.html">&laquo; トップへ戻る</a> タイトル検索</div>
 <form onsubmit="searchGames(); return false;" style="margin-bottom: 20px;">
-<input type="text" id="searchInput" class="search-box" placeholder="ゲーム名を入力" autofocus>
+<input type="text" id="searchInput" class="search-box" placeholder="ゲーム名を入力">
 <button type="submit" class="search-btn">検索</button>
 </form>
 <div id="resultCount" style="font-weight: bold; margin-bottom: 10px;">キーワードを入力して「検索」を押してください</div>
@@ -113,13 +114,8 @@ function searchGames() {
 
 window.onload = function() {
     var inputElem = document.getElementById('searchInput');
-    if (inputElem) {
-        if (inputElem.value !== '') {
-            searchGames();
-        } else {
-            // ページ表示時、検索ボックスに自動フォーカスを当てる
-            inputElem.focus();
-        }
+    if (inputElem && inputElem.value !== '') {
+        searchGames();
     }
 };
 </script>
