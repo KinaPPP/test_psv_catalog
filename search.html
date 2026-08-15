@@ -68,6 +68,9 @@ function searchGames() {
     var grid = document.getElementById('resultGrid');
     var countDiv = document.getElementById('resultCount');
     
+    // 入力欄のフォーカスを解除（十字キー左右を入力カーソルから解放）
+    inputElem.blur();
+    
     grid.innerHTML = '';
     if (!query) {
         countDiv.innerHTML = 'キーワードを入力してください';
@@ -100,6 +103,12 @@ function searchGames() {
         html += '</div>';
     }
     grid.innerHTML = html;
+
+    // 検索完了後、1件目の「ストアを開く」ボタンにフォーカスを移動
+    var firstBtn = grid.querySelector('a.btn');
+    if (firstBtn) {
+        firstBtn.focus();
+    }
 }
 
 window.onload = function() {
