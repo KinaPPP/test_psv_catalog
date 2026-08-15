@@ -48,7 +48,7 @@
 <body>
 <div class="header"><a href="index.html">&laquo; トップへ戻る</a> タイトル検索</div>
 <form onsubmit="searchGames(); return false;" style="margin-bottom: 20px;">
-<input type="text" id="searchInput" class="search-box" placeholder="ゲーム名を入力">
+<input type="text" id="searchInput" class="search-box" placeholder="ゲーム名を入力" autofocus>
 <button type="submit" class="search-btn">検索</button>
 </form>
 <div id="resultCount" style="font-weight: bold; margin-bottom: 10px;">キーワードを入力して「検索」を押してください</div>
@@ -68,7 +68,7 @@ function searchGames() {
     var grid = document.getElementById('resultGrid');
     var countDiv = document.getElementById('resultCount');
     
-    // 入力欄のフォーカスを解除（十字キー左右を入力カーソルから解放）
+    // 入力欄のフォーカスを解除
     inputElem.blur();
     
     grid.innerHTML = '';
@@ -113,8 +113,13 @@ function searchGames() {
 
 window.onload = function() {
     var inputElem = document.getElementById('searchInput');
-    if (inputElem && inputElem.value !== '') {
-        searchGames();
+    if (inputElem) {
+        if (inputElem.value !== '') {
+            searchGames();
+        } else {
+            // ページ表示時、検索ボックスに自動フォーカスを当てる
+            inputElem.focus();
+        }
     }
 };
 </script>
