@@ -69,7 +69,7 @@ function searchGames() {
     var grid = document.getElementById('resultGrid');
     var countDiv = document.getElementById('resultCount');
     
-    // 入力欄のフォーカスを解除
+    // 入力欄のフォーカスを解除（十字キー操作へ移行可能にする）
     inputElem.blur();
     
     grid.innerHTML = '';
@@ -104,18 +104,17 @@ function searchGames() {
         html += '</div>';
     }
     grid.innerHTML = html;
-
-    // 検索完了後、1件目の「ストアを開く」ボタンにフォーカスを移動
-    var firstBtn = grid.querySelector('a.btn');
-    if (firstBtn) {
-        firstBtn.focus();
-    }
 }
 
 window.onload = function() {
     var inputElem = document.getElementById('searchInput');
-    if (inputElem && inputElem.value !== '') {
-        searchGames();
+    if (inputElem) {
+        if (inputElem.value !== '') {
+            searchGames();
+        } else {
+            // 初期遷移時のみ検索ボックスにフォーカスを当てる
+            inputElem.focus();
+        }
     }
 };
 </script>
