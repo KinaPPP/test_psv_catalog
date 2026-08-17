@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PS3 ストア リンク支援</title>
+    <title>PCSG00171 - DLC一覧 (P.1)</title>
     <style>
         body { font-family: sans-serif; background-color: #f0f0f5; margin: 0; padding: 10px; color: #333; text-align: center; }
         .header { background: #003791; color: #fff; padding: 10px; border-radius: 8px; margin-bottom: 15px; font-weight: bold;}
@@ -49,31 +49,13 @@
     </style>
 </head>
 <body>
-<div class="header">PS3 ストア リンク支援（カタログ）</div>
-<div class="menu-container">
-    <div class="menu-col">
-        <a href="ps3_1.html" class="menu-btn">PS3 ダウンロード本編 (819件)</a>
-        <a href="ps1_1.html" class="menu-btn btn-ps1">PSアーカイブス [PS1] (752件)</a>
-        <a href="ps2_1.html" class="menu-btn btn-ps2">PS2アーカイブス (113件)</a>
-        <a href="pce_1.html" class="menu-btn btn-pce">PCエンジンアーカイブス (45件)</a>
-        <a href="disc_1.html" class="menu-btn btn-disc">ディスク版ソフト DLC一覧 (194作品)</a>
-    </div>
-    <div class="menu-col">
-        <a href="search.html" class="menu-btn btn-search">PS3 全体キーワード検索</a>
-        <button type="button" class="menu-btn btn-custom-id" onclick="openDirectStore()">ソフトの個別IDを入力して検索</button>
+<div class="header"><a href="javascript:history.back()">&laquo; 戻る</a> PCSG00171 のDLC (1件)</div>
+<div class="grid">
+    <div class="card" style="width: 140px; height: auto;">
+        <p style="font-size: 11px; height: 4.5em; overflow: hidden;"><b>メルルのアトリエPlus～アーランドの錬金術士3～OfficialPlayView™</b></p>
+        <a href="psns:browse?product=JP0103-NPJH60026_00-A13VPLAYVIEWFORP" class="btn">ストアを開く</a>
     </div>
 </div>
-<script>
-function openDirectStore() {
-    var contentId = prompt("ソフトの個別IDを貼り付けてください:\n(例: JP0101-NPJB00780_00-...)", "");
-    if (contentId) {
-        contentId = contentId.trim();
-        if (contentId.length > 0) {
-            window.location.href = "psns:browse?product=" + encodeURIComponent(contentId);
-        }
-    }
-}
-</script>
 
 </body>
 </html>
